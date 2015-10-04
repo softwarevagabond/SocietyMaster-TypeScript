@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Register Society";
+    
+}
+
+@section scripts
+{
+   
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="@Url.Content("~/Binding/Models/SocietyRegisterModel.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Binding/ViewModels/SocietyRegisterViewModel.js")" type="text/javascript"></script>
+}
+
+@section footerScript
+{
+    @*  First is the element Id and second is the module Name -- note both could be different.*@
+    angular.bootstrap(document.getElementById("registration"),['societyRegister']);
+}
+
+<h2>Register Society</h2>
+
+<div data-ng-non-bindable>
+    <div data-ng-controller="SocietyRegisterViewModel as vm" id="registration">
+        @Html.Partial("~/Views/Shared/_ValidationErrors.cshtml");
+        <div ng-view> </div>
+    </div>
+</div>

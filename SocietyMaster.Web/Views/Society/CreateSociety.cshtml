@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Create Society";
+    ViewBag.Name = "CreateSociety";
+}
+
+@section scripts
+{
+<script src="~/Binding/Models/NewSocietyModel.js"></script>
+<script src="~/Binding/ViewModels/NewSocietyViewModel.js"></script>
+}
+
+@section footerScript
+{
+      @*  First is the element Id and second is the module Name -- note both could be different.*@
+    @*angular.bootstrap(document.getElementById("newSociety"),['newSociety']);*@
+}
+
+<h2>CreateSociety</h2>
+
+@*<div data-ng-app="newSociety" id="newSociety" data-ng-controller="NewSocietyViewModel">
+        @Html.Partial("~/Views/Shared/_ValidationErrors.cshtml");
+        <div ng-view> </div>
+</div>*@
+
