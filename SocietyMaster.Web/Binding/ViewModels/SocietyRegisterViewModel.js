@@ -19,41 +19,34 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SocietyMaster;
 (function (SocietyMaster) {
     var SocietyRegisterViewModel = (function () {
-        function SocietyRegisterViewModel($window, viewModelHelper) {
+        function SocietyRegisterViewModel($window, viewModelHelper, societyRegisterService) {
             this.$window = $window;
             this.viewModelHelper = viewModelHelper;
+            this.societyRegisterService = societyRegisterService;
             var vm = this;
-            //if (vm.societyRegisterStep1Model == null) {
-            //    vm.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();
-            //}
-            //if (vm.societyRegisterStep2Model == null) {
-            //    vm.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
-            //}
             alert("test- base");
             //vm.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();
             //vm.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
             //Todo: Assign the value to the service -> model1 and model2
+            vm.societyRegisterStep1Model = societyRegisterService.getRegisterStep1Model();
+            vm.societyRegisterStep2Model = societyRegisterService.getRegisterStep2Model();
         }
         SocietyRegisterViewModel.prototype.previous = function () {
             this.$window.history.back();
         };
-        SocietyRegisterViewModel.inject = ['$window', 'viewModelHelper'];
+        SocietyRegisterViewModel.inject = ['$window', 'viewModelHelper', 'societyRegisterService'];
         return SocietyRegisterViewModel;
     })();
     angular.module('societyRegister')
         .controller('SocietyRegisterViewModel', SocietyRegisterViewModel);
     var SocietyRegisterStep1ViewModel = (function (_super) {
         __extends(SocietyRegisterStep1ViewModel, _super);
-        function SocietyRegisterStep1ViewModel($window, viewModelHelper, $location) {
-            _super.call(this, $window, viewModelHelper);
+        function SocietyRegisterStep1ViewModel($window, viewModelHelper, $location, societyRegisterService) {
+            _super.call(this, $window, viewModelHelper, societyRegisterService);
             this.$window = $window;
             this.viewModelHelper = viewModelHelper;
             this.$location = $location;
-            if (this.societyRegisterStep1Model != null) {
-                alert(this.societyRegisterStep1Model.Name);
-            }
-            var vm = this;
-            this.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();
+            this.societyRegisterService = societyRegisterService;
         }
         SocietyRegisterStep1ViewModel.prototype.ValidateStep1 = function (societyRegisterStep1Model) {
             this.errors = [];
@@ -79,26 +72,27 @@ var SocietyMaster;
                 this.viewModelHelper.apiPost('api/society/register/validate1', this.societyRegisterStep1Model, function (result) {
                     _this.societyRegisterStep1Model.Initialized = true;
                     alert("afte serve trip" + _this.societyRegisterStep1Model.Name);
+                    _this.societyRegisterService.setRegisterStep1Model(_this.societyRegisterStep1Model);
                     _this.$location.path('/society/register/step2');
                     //Todo: update the service -> step1 model 
                 }, function (result) { }, function (result) { });
             }
         };
-        SocietyRegisterStep1ViewModel.inject = ['$window', 'viewModelHelper', '$location'];
+        SocietyRegisterStep1ViewModel.inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService'];
         return SocietyRegisterStep1ViewModel;
     })(SocietyRegisterViewModel);
     angular.module('societyRegister')
         .controller('SocietyRegisterStep1ViewModel', SocietyRegisterStep1ViewModel);
     var SocietyRegisterStep2ViewModel = (function (_super) {
         __extends(SocietyRegisterStep2ViewModel, _super);
-        function SocietyRegisterStep2ViewModel($window, viewModelHelper, $location) {
-            _super.call(this, $window, viewModelHelper);
+        function SocietyRegisterStep2ViewModel($window, viewModelHelper, $location, societyRegisterService) {
+            _super.call(this, $window, viewModelHelper, societyRegisterService);
             this.$window = $window;
             this.viewModelHelper = viewModelHelper;
             this.$location = $location;
+            this.societyRegisterService = societyRegisterService;
             var vm = this;
-            this.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
-            // alert(this.societyRegisterStep1Model.Name);
+            alert(this.societyRegisterStep1Model.Name);
             //ToDO: Like in step1 - assgn the service -> step2
         }
         SocietyRegisterStep2ViewModel.prototype.previous = function () {
@@ -117,22 +111,23 @@ var SocietyMaster;
             //        this.$location.path('society/register/confirm');
             //    }, (result) => { alert("Failure"); }, (result) => { alert("Always")});
         };
-        SocietyRegisterStep2ViewModel.inject = ['$window', 'viewModelHelper', '$location'];
+        SocietyRegisterStep2ViewModel.inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService'];
         return SocietyRegisterStep2ViewModel;
     })(SocietyRegisterViewModel);
     angular.module('societyRegister')
         .controller('SocietyRegisterStep2ViewModel', SocietyRegisterStep2ViewModel);
     var SocietyRegisterConfirmViewModel = (function (_super) {
         __extends(SocietyRegisterConfirmViewModel, _super);
-        function SocietyRegisterConfirmViewModel($window, viewModelHelper, $location) {
-            _super.call(this, $window, viewModelHelper);
+        function SocietyRegisterConfirmViewModel($window, viewModelHelper, $location, societyRegisterService) {
+            _super.call(this, $window, viewModelHelper, societyRegisterService);
             this.$window = $window;
             this.viewModelHelper = viewModelHelper;
             this.$location = $location;
+            this.societyRegisterService = societyRegisterService;
         }
         SocietyRegisterConfirmViewModel.prototype.createSociety = function () {
         };
-        SocietyRegisterConfirmViewModel.inject = ['$window', 'viewModelHelper', '$location'];
+        SocietyRegisterConfirmViewModel.inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService'];
         return SocietyRegisterConfirmViewModel;
     })(SocietyRegisterViewModel);
     angular.module('societyRegister')

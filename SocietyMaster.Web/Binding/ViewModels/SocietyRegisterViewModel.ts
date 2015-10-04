@@ -32,22 +32,18 @@ module SocietyMaster {
         societyRegisterStep1Model: SocietyMaster.ISocietyRegisterStep1Model;
         societyRegisterStep2Model: SocietyMaster.ISocietyRegisterStep2Model;
             
-        static inject = ['$window', 'viewModelHelper'];
+        static inject = ['$window', 'viewModelHelper','societyRegisterService'];
 
-        constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper) {
+        constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper,
+            protected societyRegisterService:SocietyMaster.SocietyRegisterService ) {
             var vm = this;
-            //if (vm.societyRegisterStep1Model == null) {
-            //    vm.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();
-            //}
-            //if (vm.societyRegisterStep2Model == null) {
-            //    vm.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
-            //}
             alert("test- base");
 
             //vm.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();
             //vm.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
             //Todo: Assign the value to the service -> model1 and model2
-
+            vm.societyRegisterStep1Model = societyRegisterService.getRegisterStep1Model();
+            vm.societyRegisterStep2Model = societyRegisterService.getRegisterStep2Model();
         }
 
         previous(): void {
@@ -69,19 +65,11 @@ module SocietyMaster {
 
 
         private errors: string[];
-        static inject = ['$window', 'viewModelHelper','$location']
+        static inject = ['$window', 'viewModelHelper', '$location','societyRegisterService']
         constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper,
-            private $location: ng.ILocationService) {
+            private $location: ng.ILocationService, protected societyRegisterService: SocietyMaster.SocietyRegisterService) {
            
-            super($window, viewModelHelper);
-        
-            if (this.societyRegisterStep1Model != null) {
-                alert(this.societyRegisterStep1Model.Name);
-                
-            }
-            var vm = this;
-            this.societyRegisterStep1Model = new SocietyMaster.SocietyRegisterStep1Model();          
-                    
+            super($window, viewModelHelper, societyRegisterService);                    
         }
 
         ValidateStep1(societyRegisterStep1Model: SocietyMaster.SocietyRegisterStep1Model): void {
@@ -111,7 +99,8 @@ module SocietyMaster {
                 this.viewModelHelper.apiPost('api/society/register/validate1', this.societyRegisterStep1Model,
                     (result) => {
                         this.societyRegisterStep1Model.Initialized = true;
-                        alert("afte serve trip"+this.societyRegisterStep1Model.Name)
+                        alert("afte serve trip" + this.societyRegisterStep1Model.Name);
+                        this.societyRegisterService.setRegisterStep1Model(this.societyRegisterStep1Model);
                         this.$location.path('/society/register/step2');
                         //Todo: update the service -> step1 model 
                     }, (result) => { }, (result) => { });
@@ -129,13 +118,13 @@ module SocietyMaster {
 
     class SocietyRegisterStep2ViewModel extends SocietyRegisterViewModel implements ISocietyRegisterStep2ViewModel {
 
-        static inject = ['$window', 'viewModelHelper', '$location']
+        static inject = ['$window', 'viewModelHelper', '$location','societyRegisterService']
         constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper,
-            private $location: ng.ILocationService) {            
-            super($window, viewModelHelper);
+            private $location: ng.ILocationService, protected societyRegisterService: SocietyMaster.SocietyRegisterService) {            
+            super($window, viewModelHelper, societyRegisterService);
             var vm = this;
-            this.societyRegisterStep2Model = new SocietyMaster.SocietyRegisterStep2Model();
-           // alert(this.societyRegisterStep1Model.Name);
+
+            alert(this.societyRegisterStep1Model.Name);
             //ToDO: Like in step1 - assgn the service -> step2
         }
 
@@ -167,10 +156,10 @@ module SocietyMaster {
 
     class SocietyRegisterConfirmViewModel extends SocietyRegisterViewModel implements ISocietyRegisterConfirmViewModel {
 
-        static inject = ['$window', 'viewModelHelper', '$location']
+        static inject = ['$window', 'viewModelHelper', '$location','societyRegisterService']
         constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper,
-            private $location: ng.ILocationService) {
-            super($window, viewModelHelper);
+            private $location: ng.ILocationService, protected societyRegisterService: SocietyMaster.SocietyRegisterService) {
+            super($window, viewModelHelper, societyRegisterService);
         }
         createSociety(): void {
         }
