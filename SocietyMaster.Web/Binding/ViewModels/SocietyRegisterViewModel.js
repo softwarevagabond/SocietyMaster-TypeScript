@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 //Create the Society Register Module
 (function () {
     angular.
-        module('societyRegister', ['common']).config(routeConfig);
+        module('societyRegister', ['common', 'app.widgets']).config(routeConfig);
     function routeConfig($routeProvider, $locationProvider) {
         $routeProvider.when('/society/register/step1', { templateUrl: '/Templates/RegisterSocietyStep1.html', controller: 'SocietyRegisterStep1ViewModel', controllerAs: "vm" });
         $routeProvider.when('/society/register/step2', { templateUrl: '/Templates/RegisterSocietyStep2.html', controller: 'SocietyRegisterStep2ViewModel', controllerAs: "vm" });
@@ -85,12 +85,13 @@ var SocietyMaster;
         .controller('SocietyRegisterStep1ViewModel', SocietyRegisterStep1ViewModel);
     var SocietyRegisterStep2ViewModel = (function (_super) {
         __extends(SocietyRegisterStep2ViewModel, _super);
-        function SocietyRegisterStep2ViewModel($window, viewModelHelper, $location, societyRegisterService) {
+        function SocietyRegisterStep2ViewModel($window, viewModelHelper, $location, societyRegisterService, $modal) {
             _super.call(this, $window, viewModelHelper, societyRegisterService);
             this.$window = $window;
             this.viewModelHelper = viewModelHelper;
             this.$location = $location;
             this.societyRegisterService = societyRegisterService;
+            this.$modal = $modal;
             var vm = this;
             alert(this.societyRegisterStep1Model.Name);
             //ToDO: Like in step1 - assgn the service -> step2
@@ -111,7 +112,14 @@ var SocietyMaster;
             //        this.$location.path('society/register/confirm');
             //    }, (result) => { alert("Failure"); }, (result) => { alert("Always")});
         };
-        SocietyRegisterStep2ViewModel.inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService'];
+        SocietyRegisterStep2ViewModel.prototype.add = function () {
+            //Open the modal dialog for the building
+            alert('New Building');
+            this.$modal.open({
+                template: '<add-building />'
+            });
+        };
+        SocietyRegisterStep2ViewModel.inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService', '$modal'];
         return SocietyRegisterStep2ViewModel;
     })(SocietyRegisterViewModel);
     angular.module('societyRegister')

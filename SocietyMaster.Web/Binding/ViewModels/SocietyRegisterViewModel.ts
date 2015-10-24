@@ -1,7 +1,7 @@
 ﻿//Create the Society Register Module
 ((): void => {
     angular.
-        module('societyRegister', ['common']).config(routeConfig);
+        module('societyRegister', ['common','app.widgets']).config(routeConfig);
 
     function routeConfig($routeProvider: ng.route.IRouteProvider, $locationProvider :ng.ILocationProvider):void {
 
@@ -118,9 +118,11 @@ module SocietyMaster {
 
     class SocietyRegisterStep2ViewModel extends SocietyRegisterViewModel implements ISocietyRegisterStep2ViewModel {
 
-        static inject = ['$window', 'viewModelHelper', '$location','societyRegisterService']
+        static inject = ['$window', 'viewModelHelper', '$location', 'societyRegisterService', '$modal']
         constructor(protected $window: ng.IWindowService, public viewModelHelper: SocietyMaster.IViewModelHelper,
-            private $location: ng.ILocationService, protected societyRegisterService: SocietyMaster.SocietyRegisterService) {            
+            private $location: ng.ILocationService, protected societyRegisterService: SocietyMaster.SocietyRegisterService,
+            private $modal
+           ) {            
             super($window, viewModelHelper, societyRegisterService);
             var vm = this;
 
@@ -143,6 +145,14 @@ module SocietyMaster {
             //        this.societyRegisterStep2Model.Initialized = true;
             //        this.$location.path('society/register/confirm');
             //    }, (result) => { alert("Failure"); }, (result) => { alert("Always")});
+
+        }
+        add(): void {
+            //Open the modal dialog for the building
+            alert('New Building');
+            this.$modal.open({
+                template: '<add-building />'
+            });
 
         }
     }

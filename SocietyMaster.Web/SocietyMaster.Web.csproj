@@ -199,6 +199,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Binding\Directives\AddBuildingDirective.js" />
     <Content Include="Binding\Models\NewSocietyModel.js" />
     <Content Include="Binding\Models\SocietyRegisterModel.js" />
     <Content Include="Binding\Models\SocietyRegisterModel1.js" />
@@ -369,6 +370,7 @@
     <Content Include="Binding\Models\SocietyRegisterModel.js.map" />
     <Content Include="Binding\ViewModels\SocietyRegisterViewModel.js.map" />
     <Content Include="Binding\Services\SocietyRegisterService.js.map" />
+    <Content Include="Binding\Directives\AddBuildingDirective.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
@@ -399,6 +401,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\AddBuilding.html" />
     <Content Include="Templates\RegisterSocietyConfirm.html" />
     <Content Include="Templates\RegisterSocietyStep1.html" />
     <Content Include="Templates\RegisterSocietyStep1_1.html" />
@@ -470,6 +473,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Binding\Directives\AddBuildingDirective.ts" />
     <TypeScriptCompile Include="Binding\Models\SocietyRegisterModel.ts" />
     <TypeScriptCompile Include="Binding\Services\SocietyRegisterService.ts" />
     <TypeScriptCompile Include="Binding\ViewModels\SocietyRegisterViewModel.ts" />
